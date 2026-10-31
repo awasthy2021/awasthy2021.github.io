@@ -239,8 +239,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
             <details>
               <summary><span class="t">Order Management Service (OMS)</span><span class="metric">Outbox + Kafka</span></summary>
               <ul>
-                <li><strong>Impact:</strong> Reliable, consistent order events to downstream services, with no lost notifications thanks to the Outbox pattern.</li>
-                <li><strong>Impact:</strong> One service for order intake and tracking across the picking flow.</li>
+                <li><strong>Impact:</strong> Reliable downstream notifications and stronger data consistency, using the <strong>Outbox pattern with Kafka</strong>.</li>
                 <li>Owned design and development of a <strong>Spring Boot microservice</strong> managing order documents (ServiceRequests).</li>
                 <li>Built <strong>REST and Kafka-based intake</strong>, hierarchical order structures and expected-vs-actual tracking.</li>
                 <li>Designed state and stage transitions during picking.</li>
@@ -251,7 +250,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
             <details>
               <summary><span class="t">Authentication &amp; RBAC Platform (SSO / IAM)</span><span class="metric">zero-downtime rotation</span></summary>
               <ul>
-                <li><strong>Impact:</strong> One session model for enterprise SSO users and password-grant users across all platform apps.</li>
+                <li><strong>Impact:</strong> Unified enterprise SSO users and password-grant users under <strong>one session model</strong>.</li>
                 <li><strong>Impact:</strong> <strong>Zero-downtime</strong> client-secret rotation using a versioned secret store and a grace-period Argon2 encoder.</li>
                 <li>Built the platform's <strong>auth microservice</strong> as an <strong>OAuth2 authorization server</strong> with Keycloak as the identity provider.</li>
                 <li>Wrote custom pre/post-IdP <strong>Keycloak authenticator SPIs</strong> that read application, station and requested-role context from OIDC redirect URIs.</li>
