@@ -138,6 +138,12 @@ details li { margin-bottom: 6px; }
 details li strong { color: var(--ink); font-weight: 600; }
 @media (max-width: 520px) { summary { flex-wrap: wrap; } summary .metric { order: 3; flex-basis: 100%; } }
 
+.summary { color: var(--muted); margin: 6px 0 0; }
+.job h3 a { color: inherit; }
+.job h3 a:hover { color: var(--accent); }
+.tech { font: 400 13px/1.6 var(--mono); color: var(--muted); margin: 0 0 16px; padding-top: 12px; border-top: 1px dashed var(--line); max-width: none; }
+.tech span { color: var(--accent); font-weight: 500; }
+
 /* skills */
 .skills { display: grid; gap: 18px; }
 .skillrow { display: grid; grid-template-columns: 150px 1fr; gap: 28px; align-items: start; }
@@ -212,83 +218,99 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
       <article class="job">
         <div class="when"><b>Aug 2023 – Present</b>Gurgaon, India</div>
         <div>
-          <h3>GreyOrange</h3>
-          <p class="role">Software Engineer</p>
-          <p>Backend engineer building Java microservices for warehouse picking. Owner of the order management, picking and auth services.</p>
+          <h3>Software Engineer @ <a href="https://www.greyorange.com" target="_blank" rel="noopener">GreyOrange</a></h3>
+          <p class="summary">Building Java microservices that keep warehouse picking smooth and fast. Owner of the order management service, the platform's auth service, and core picking logic: virtual bins, pick-clean and tiering. Delivered 150% higher throughput and 30% better picking productivity, and resolve 75+ SEV1/SEV2 incidents a quarter.</p>
+          <ul class="chips" aria-label="Tech stack at GreyOrange">
+            <li>Java 21</li><li>Spring Boot</li><li>Erlang/OTP</li><li>Kafka</li><li>PostgreSQL</li><li>Redis</li><li>Mnesia</li><li>Keycloak</li><li>Spring Authorization Server</li><li>Flyway</li><li>Elasticsearch</li><li>InfluxDB</li><li>RabbitMQ</li><li>Camunda</li><li>Consul</li><li>Docker</li><li>GCP</li><li>GitHub Actions</li><li>Prometheus</li><li>Pact</li>
+          </ul>
 
           <div class="projects">
             <details>
-              <summary><span class="t">Authentication &amp; RBAC Platform (SSO / IAM)</span><span class="metric">zero-downtime rotation</span></summary>
+              <summary><span class="t">Virtual Bins: Picking Orchestration Layer</span><span class="metric">+150% throughput</span></summary>
               <ul>
-                <li>Built the platform's <strong>auth microservice</strong> as an <strong>OAuth2 authorization server</strong> using Spring Authorization Server with <strong>Keycloak</strong> as the identity provider.</li>
-                <li>Wrote custom pre/post-IdP authenticator SPIs that read application, station and requested-role context from <strong>OIDC</strong> redirect URIs and flatten composite role mappings.</li>
-                <li>Unified enterprise SSO users and password-grant users under one session model.</li>
-                <li>Added role-to-permission <strong>RBAC</strong> projected into JWT claims, with two-way role sync through the Keycloak Admin REST API.</li>
-                <li><strong>Zero-downtime</strong> client-secret rotation using a versioned secret store and a grace-period Argon2 encoder.</li>
+                <li><strong>Impact:</strong> <strong>150% improvement</strong> in system throughput and operational efficiency.</li>
+                <li>Owned <strong>end-to-end design and implementation</strong>: LLD, data models and state transitions for <strong>many-to-one virtual-to-physical bin mapping</strong>.</li>
+                <li>Designed order assignment and de-allocation strategies for different warehouse constraints and load patterns.</li>
+                <li>Built flows for order assignment, smart picking and bin release, with failure recovery and edge-case handling.</li>
               </ul>
-            </details>
-
-            <details>
-              <summary><span class="t">Virtual Bins (System Design &amp; LLD)</span><span class="metric">+150% throughput</span></summary>
-              <ul>
-                <li>Owned the <strong>end-to-end design and implementation</strong> of a Virtual Bin orchestration layer: LLD, data models and state transitions.</li>
-                <li>Supported <strong>many-to-one virtual-to-physical bin mapping</strong>, with order assignment and de-allocation strategies for different warehouse constraints and load patterns.</li>
-                <li>Designed flows for order assignment, smart picking and bin release, including failure recovery and edge cases.</li>
-                <li>Result: a <strong>150% improvement</strong> in system throughput and operational efficiency.</li>
-              </ul>
+              <p class="tech"><span>Tech:</span> Erlang/OTP, Mnesia, PostgreSQL, Kafka, Cowboy REST APIs</p>
             </details>
 
             <details>
               <summary><span class="t">Order Management Service (OMS)</span><span class="metric">Outbox + Kafka</span></summary>
               <ul>
-                <li>Owned design and development of the <strong>Order Management Service</strong>, a Spring Boot microservice managing order documents (ServiceRequests).</li>
-                <li>Built <strong>REST and Kafka-based intake</strong>, hierarchical order structures, and expected-vs-actual tracking.</li>
+                <li><strong>Impact:</strong> Reliable, consistent order events to downstream services, with no lost notifications thanks to the Outbox pattern.</li>
+                <li><strong>Impact:</strong> One service for order intake and tracking across the picking flow.</li>
+                <li>Owned design and development of a <strong>Spring Boot microservice</strong> managing order documents (ServiceRequests).</li>
+                <li>Built <strong>REST and Kafka-based intake</strong>, hierarchical order structures and expected-vs-actual tracking.</li>
                 <li>Designed state and stage transitions during picking.</li>
-                <li>Guaranteed reliable downstream notifications with the <strong>Outbox pattern on Kafka</strong>, improving reliability and data consistency.</li>
               </ul>
+              <p class="tech"><span>Tech:</span> Java 21, Spring Boot, Kafka, PostgreSQL, Flyway, Hibernate, InfluxDB, Consul, OpenAPI</p>
             </details>
 
             <details>
-              <summary><span class="t">Pick Clean Mode (Algorithmic Design)</span><span class="metric">−80% cleanup time</span></summary>
+              <summary><span class="t">Authentication &amp; RBAC Platform (SSO / IAM)</span><span class="metric">zero-downtime rotation</span></summary>
               <ul>
+                <li><strong>Impact:</strong> One session model for enterprise SSO users and password-grant users across all platform apps.</li>
+                <li><strong>Impact:</strong> <strong>Zero-downtime</strong> client-secret rotation using a versioned secret store and a grace-period Argon2 encoder.</li>
+                <li>Built the platform's <strong>auth microservice</strong> as an <strong>OAuth2 authorization server</strong> with Keycloak as the identity provider.</li>
+                <li>Wrote custom pre/post-IdP <strong>Keycloak authenticator SPIs</strong> that read application, station and requested-role context from OIDC redirect URIs.</li>
+                <li>Added role-to-permission <strong>RBAC</strong> projected into JWT claims, with two-way role sync through the Keycloak Admin REST API.</li>
+              </ul>
+              <p class="tech"><span>Tech:</span> Java 21, Spring Boot, Spring Authorization Server, Spring Security, Keycloak 26 (SPI), OAuth2 / OIDC, JWT, PostgreSQL, Flyway, Kafka</p>
+            </details>
+
+            <details>
+              <summary><span class="t">Pick Clean Mode</span><span class="metric">−80% cleanup time</span></summary>
+              <ul>
+                <li><strong>Impact:</strong> Cut rack and storage cleanup time by <strong>80%</strong> without affecting live order flows.</li>
                 <li>Independently designed a <strong>rack-cleaning optimisation</strong> using tree and sorting algorithms to minimise picker movement and re-handling.</li>
-                <li>Cut rack and storage cleanup time by <strong>80%</strong> without affecting live order flows.</li>
               </ul>
+              <p class="tech"><span>Tech:</span> Erlang/OTP, Mnesia, PostgreSQL</p>
             </details>
 
             <details>
-              <summary><span class="t">Tiering (Throughput Optimisation)</span><span class="metric">+30% picking productivity</span></summary>
+              <summary><span class="t">Tiering: Throughput Optimisation</span><span class="metric">+30% picking productivity</span></summary>
               <ul>
-                <li>Designed a <strong>rack-tiering and proximity-based grouping</strong> mechanism to reduce aisle congestion during peak picking.</li>
-                <li>Introduced tier-aware picking prioritisation, improving picker parallelism for a <strong>30% increase</strong> in picking productivity.</li>
+                <li><strong>Impact:</strong> <strong>30% increase</strong> in picking productivity.</li>
+                <li>Designed a <strong>rack-tiering and proximity-based grouping</strong> mechanism to reduce aisle congestion.</li>
+                <li>Introduced tier-aware picking prioritisation, improving picker parallelism.</li>
               </ul>
+              <p class="tech"><span>Tech:</span> Erlang/OTP, Mnesia, PostgreSQL</p>
             </details>
 
             <details>
-              <summary><span class="t">Reliability, Integration &amp; AI tooling</span><span class="metric">75+ SEV1/2 per quarter</span></summary>
+              <summary><span class="t">Reliability, CI/CD &amp; AI tooling</span><span class="metric">75+ SEV1/2 per quarter</span></summary>
               <ul>
-                <li>Delivered <strong>2+ stories per sprint</strong> and <strong>10+ migrations/APIs</strong>, with event-driven observability across <strong>13+ workflows</strong>.</li>
-                <li>Resolved <strong>75+ SEV1/SEV2 incidents per quarter</strong>; added <strong>40+ E2E tests</strong> and <strong>Pact contracts</strong> for reliable API integration.</li>
+                <li><strong>Impact:</strong> Resolve <strong>75+ SEV1/SEV2 incidents per quarter</strong> in production.</li>
+                <li><strong>Impact:</strong> <strong>40+ E2E tests</strong> and <strong>Pact contracts</strong> catch API breakages before release.</li>
+                <li>Deliver <strong>2+ stories per sprint</strong> and <strong>10+ migrations/APIs</strong>, with event-driven observability across <strong>13+ workflows</strong>.</li>
                 <li>Brought <strong>LLMs and AI agents</strong> into engineering workflows for development, debugging, code analysis and automation.</li>
               </ul>
+              <p class="tech"><span>Tech:</span> GitHub Actions, Docker, GCP (Artifact Registry, Pub/Sub), SonarQube, Pact, Prometheus, Zipkin</p>
             </details>
           </div>
-
-          <ul class="chips" aria-label="Technologies used">
-            <li>Java</li><li>Spring Boot</li><li>Kafka</li><li>Keycloak</li><li>OAuth2 / OIDC</li><li>PostgreSQL</li><li>Redis</li><li>Elasticsearch</li><li>InfluxDB</li><li>Erlang</li><li>Docker</li><li>GCP</li><li>Pact</li>
-          </ul>
         </div>
       </article>
 
       <article class="job">
         <div class="when"><b>May – Jul 2022</b>India</div>
         <div>
-          <h3>Oracle India (IDC)</h3>
-          <p class="role">Member of Technical Staff Intern</p>
-          <p>Built a smart chatbot tooling pipeline: converted flowchart-based logic into structured JSON/XML (DFF), generated artifacts in Java, integrated with RASA, and modelled graph-based conversation flows in Neo4j.</p>
-          <ul class="chips" aria-label="Technologies used">
+          <h3>MTS Intern @ <a href="https://www.oracle.com" target="_blank" rel="noopener">Oracle India (IDC)</a></h3>
+          <p class="summary">Built a smart chatbot tooling pipeline that turns flowchart-based conversation logic into working bot artifacts.</p>
+          <ul class="chips" aria-label="Tech stack at Oracle">
             <li>Java</li><li>RASA</li><li>Neo4j</li><li>JSON / XML</li>
           </ul>
+          <div class="projects">
+            <details>
+              <summary><span class="t">Chatbot Tooling Pipeline</span><span class="metric">flowchart → bot</span></summary>
+              <ul>
+                <li>Converted flowchart-based logic into structured JSON/XML (DFF) and generated bot artifacts in Java.</li>
+                <li>Integrated the pipeline with RASA and modelled graph-based conversation flows in Neo4j.</li>
+              </ul>
+              <p class="tech"><span>Tech:</span> Java, RASA, Neo4j, JSON/XML</p>
+            </details>
+          </div>
         </div>
       </article>
     </div>
@@ -301,11 +323,11 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
         <div class="skillrow"><div class="label">Languages</div>
           <ul class="chips"><li>Java</li><li>C++</li><li>Erlang</li><li>Python</li><li>SQL</li></ul></div>
         <div class="skillrow"><div class="label">Backend</div>
-          <ul class="chips"><li>Spring Boot</li><li>Spring Authorization Server</li><li>Apache Kafka</li><li>REST APIs</li><li>Microservices</li><li>OAuth2 / OIDC</li><li>Keycloak</li></ul></div>
+          <ul class="chips"><li>Spring Boot</li><li>Spring Security</li><li>Spring Authorization Server</li><li>Apache Kafka</li><li>RabbitMQ</li><li>REST APIs</li><li>Microservices</li><li>OAuth2 / OIDC</li><li>Keycloak</li><li>Camunda</li></ul></div>
         <div class="skillrow"><div class="label">Data</div>
-          <ul class="chips"><li>PostgreSQL</li><li>Redis</li><li>Elasticsearch</li><li>InfluxDB</li><li>Neo4j</li></ul></div>
+          <ul class="chips"><li>PostgreSQL</li><li>Redis</li><li>Mnesia</li><li>Elasticsearch</li><li>InfluxDB</li><li>Neo4j</li><li>Flyway</li></ul></div>
         <div class="skillrow"><div class="label">Cloud &amp; DevOps</div>
-          <ul class="chips"><li>Google Cloud (GCP)</li><li>Docker</li><li>CI/CD</li><li>Git</li><li>JIRA</li></ul></div>
+          <ul class="chips"><li>Google Cloud (GCP)</li><li>Docker</li><li>CI/CD</li><li>GitHub Actions</li><li>SonarQube</li><li>Prometheus</li><li>Zipkin</li><li>Git</li><li>JIRA</li></ul></div>
         <div class="skillrow"><div class="label">Core</div>
           <ul class="chips"><li>System Design</li><li>Low-Level Design</li><li>Data Structures &amp; Algorithms</li><li>Event-driven architecture</li></ul></div>
       </div>
