@@ -150,6 +150,31 @@ details li strong { color: var(--ink); font-weight: 600; }
 .tech { font: 400 13px/1.6 var(--mono); color: var(--muted); margin: 0 0 16px; padding-top: 12px; border-top: 1px dashed var(--line); max-width: none; }
 .tech span { color: var(--accent); font-weight: 500; }
 
+.project { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 0 18px; }
+.phead { display: grid; row-gap: 10px; padding: 16px 0 12px; font-weight: 600; }
+.phead .head { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 14px; flex-wrap: wrap; min-width: 0; }
+.phead .t { flex: 1; min-width: 0; }
+.phead .metric { font: 500 13px/1.3 var(--mono); color: var(--accent); white-space: nowrap; }
+.phead .chips { margin: 0; }
+.project > ul { margin: 0 0 16px; padding-left: 18px; color: var(--muted); }
+.project > ul > li { margin-bottom: 6px; }
+.project > ul > li strong { color: var(--ink); font-weight: 600; }
+@media (max-width: 520px) { .phead .metric { flex-basis: 100%; white-space: normal; } }
+
+/* timeline */
+#experience .job { position: relative; }
+#experience .job + .job { border-top: 0; }
+#experience .job::before { content: ""; position: absolute; left: 163px; top: 0; bottom: 0; width: 2px; background: var(--line); }
+#experience .job:first-of-type::before { top: 10px; }
+#experience .when { position: relative; }
+#experience .when::before { content: ""; position: absolute; right: -20px; top: 7px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--bg); }
+.dur { display: inline-block; margin: 4px 0 6px; padding: 2px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 12px; }
+@media (max-width: 640px) {
+  #experience .job { padding-left: 26px; }
+  #experience .job::before { left: 5px; }
+  #experience .when::before { right: auto; left: -26px; }
+}
+
 /* skills */
 .skills { display: grid; gap: 18px; }
 .skillrow { display: grid; grid-template-columns: 150px 1fr; gap: 28px; align-items: start; }
@@ -222,27 +247,24 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
       <h2>Experience</h2>
 
       <article class="job">
-        <div class="when"><b>Aug 2023 – Present</b>Gurgaon, India</div>
+        <div class="when"><b>Aug 2023 – Present</b><span class="dur" data-from="2023-08"></span>Gurgaon, India</div>
         <div>
           <div class="jobhead"><img class="logo" src="https://www.google.com/s2/favicons?domain=greyorange.com&amp;sz=128" alt="GreyOrange logo" width="40" height="40" loading="lazy" onerror="this.remove()"><h3>Software Engineer @ <a href="https://www.greyorange.com" target="_blank" rel="noopener">GreyOrange</a></h3></div>
           <p class="summary">Building Java microservices that keep warehouse picking smooth and fast. Owner of the order management service, the platform's auth service, and core picking logic: virtual bins, pick-clean and tiering. Delivered 150% higher throughput and 30% better picking productivity, and resolve 75+ SEV1/SEV2 incidents a quarter.</p>
-          <ul class="chips" aria-label="Tech stack at GreyOrange">
-            <li>Java 21</li><li>Spring Boot</li><li>Erlang/OTP</li><li>Kafka</li><li>PostgreSQL</li><li>Redis</li><li>Mnesia</li><li>Keycloak</li><li>Spring Authorization Server</li><li>Flyway</li><li>Elasticsearch</li><li>InfluxDB</li><li>RabbitMQ</li><li>Camunda</li><li>Consul</li><li>Docker</li><li>GCP</li><li>GitHub Actions</li><li>Prometheus</li><li>Pact</li>
-          </ul>
 
           <div class="projects">
-            <details>
-              <summary><span class="head"><span class="t">Order Management Service (OMS)</span><span class="metric">Outbox + Kafka</span></span><ul class="chips" aria-label="Tech used"><li>Java 21</li><li>Spring Boot</li><li>Kafka</li><li>PostgreSQL</li><li>Flyway</li><li>Hibernate</li><li>InfluxDB</li><li>Consul</li><li>OpenAPI</li></ul></summary>
+            <div class="project">
+              <div class="phead"><span class="head"><span class="t">Order Management Service (OMS)</span><span class="metric">Outbox + Kafka</span></span><ul class="chips" aria-label="Tech used"><li>Java 21</li><li>Spring Boot</li><li>Kafka</li><li>PostgreSQL</li><li>Flyway</li><li>Hibernate</li><li>InfluxDB</li><li>Consul</li><li>OpenAPI</li></ul></div>
               <ul>
                 <li><strong>Impact:</strong> Reliable downstream notifications and stronger data consistency, using the <strong>Outbox pattern with Kafka</strong>.</li>
                 <li>Owned design and development of a <strong>Spring Boot microservice</strong> managing order documents (ServiceRequests).</li>
                 <li>Built <strong>REST and Kafka-based intake</strong>, hierarchical order structures and expected-vs-actual tracking.</li>
                 <li>Designed state and stage transitions during picking.</li>
               </ul>
-            </details>
+            </div>
 
-            <details>
-              <summary><span class="head"><span class="t">Authentication &amp; RBAC Platform (SSO / IAM)</span><span class="metric">zero-downtime rotation</span></span><ul class="chips" aria-label="Tech used"><li>Java 21</li><li>Spring Boot</li><li>Spring Authorization Server</li><li>Spring Security</li><li>Keycloak 26 (SPI)</li><li>OAuth2 / OIDC</li><li>JWT</li><li>PostgreSQL</li><li>Flyway</li><li>Kafka</li></ul></summary>
+            <div class="project">
+              <div class="phead"><span class="head"><span class="t">Authentication &amp; RBAC Platform (SSO / IAM)</span><span class="metric">zero-downtime rotation</span></span><ul class="chips" aria-label="Tech used"><li>Java 21</li><li>Spring Boot</li><li>Spring Authorization Server</li><li>Spring Security</li><li>Keycloak 26 (SPI)</li><li>OAuth2 / OIDC</li><li>JWT</li><li>PostgreSQL</li><li>Flyway</li><li>Kafka</li></ul></div>
               <ul>
                 <li><strong>Impact:</strong> Unified enterprise SSO users and password-grant users under <strong>one session model</strong>.</li>
                 <li><strong>Impact:</strong> <strong>Zero-downtime</strong> client-secret rotation using a versioned secret store and a grace-period Argon2 encoder.</li>
@@ -250,64 +272,61 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
                 <li>Wrote custom pre/post-IdP <strong>Keycloak authenticator SPIs</strong> that read application, station and requested-role context from OIDC redirect URIs.</li>
                 <li>Added role-to-permission <strong>RBAC</strong> projected into JWT claims, with two-way role sync through the Keycloak Admin REST API.</li>
               </ul>
-            </details>
+            </div>
 
-            <details>
-              <summary><span class="head"><span class="t">Virtual Bins: Picking Orchestration Layer</span><span class="metric">+150% throughput</span></span><ul class="chips" aria-label="Tech used"><li>Erlang/OTP</li><li>Mnesia</li><li>PostgreSQL</li><li>Kafka</li><li>Cowboy REST APIs</li></ul></summary>
+            <div class="project">
+              <div class="phead"><span class="head"><span class="t">Virtual Bins: Picking Orchestration Layer</span><span class="metric">+150% throughput</span></span><ul class="chips" aria-label="Tech used"><li>Erlang/OTP</li><li>Mnesia</li><li>PostgreSQL</li><li>Kafka</li><li>Cowboy REST APIs</li></ul></div>
               <ul>
                 <li><strong>Impact:</strong> <strong>150% improvement</strong> in system throughput and operational efficiency.</li>
                 <li>Owned <strong>end-to-end design and implementation</strong>: LLD, data models and state transitions for <strong>many-to-one virtual-to-physical bin mapping</strong>.</li>
                 <li>Designed order assignment and de-allocation strategies for different warehouse constraints and load patterns.</li>
                 <li>Built flows for order assignment, smart picking and bin release, with failure recovery and edge-case handling.</li>
               </ul>
-            </details>
+            </div>
 
-            <details>
-              <summary><span class="head"><span class="t">Pick Clean Mode</span><span class="metric">−80% cleanup time</span></span><ul class="chips" aria-label="Tech used"><li>Erlang/OTP</li><li>Mnesia</li><li>PostgreSQL</li></ul></summary>
+            <div class="project">
+              <div class="phead"><span class="head"><span class="t">Pick Clean Mode</span><span class="metric">−80% cleanup time</span></span><ul class="chips" aria-label="Tech used"><li>Erlang/OTP</li><li>Mnesia</li><li>PostgreSQL</li></ul></div>
               <ul>
                 <li><strong>Impact:</strong> Cut rack and storage cleanup time by <strong>80%</strong> without affecting live order flows.</li>
                 <li>Independently designed a <strong>rack-cleaning optimisation</strong> using tree and sorting algorithms to minimise picker movement and re-handling.</li>
               </ul>
-            </details>
+            </div>
 
-            <details>
-              <summary><span class="head"><span class="t">Tiering: Throughput Optimisation</span><span class="metric">+30% picking productivity</span></span><ul class="chips" aria-label="Tech used"><li>Erlang/OTP</li><li>Mnesia</li><li>PostgreSQL</li></ul></summary>
+            <div class="project">
+              <div class="phead"><span class="head"><span class="t">Tiering: Throughput Optimisation</span><span class="metric">+30% picking productivity</span></span><ul class="chips" aria-label="Tech used"><li>Erlang/OTP</li><li>Mnesia</li><li>PostgreSQL</li></ul></div>
               <ul>
                 <li><strong>Impact:</strong> <strong>30% increase</strong> in picking productivity.</li>
                 <li>Designed a <strong>rack-tiering and proximity-based grouping</strong> mechanism to reduce aisle congestion.</li>
                 <li>Introduced tier-aware picking prioritisation, improving picker parallelism.</li>
               </ul>
-            </details>
+            </div>
 
-            <details>
-              <summary><span class="head"><span class="t">Reliability, CI/CD &amp; AI tooling</span><span class="metric">75+ SEV1/2 per quarter</span></span><ul class="chips" aria-label="Tech used"><li>GitHub Actions</li><li>Docker</li><li>GCP (Artifact Registry, Pub/Sub)</li><li>SonarQube</li><li>Pact</li><li>Prometheus</li><li>Zipkin</li></ul></summary>
+            <div class="project">
+              <div class="phead"><span class="head"><span class="t">Reliability, CI/CD &amp; AI tooling</span><span class="metric">75+ SEV1/2 per quarter</span></span><ul class="chips" aria-label="Tech used"><li>GitHub Actions</li><li>Docker</li><li>GCP (Artifact Registry, Pub/Sub)</li><li>SonarQube</li><li>Pact</li><li>Prometheus</li><li>Zipkin</li></ul></div>
               <ul>
                 <li><strong>Impact:</strong> Resolve <strong>75+ SEV1/SEV2 incidents per quarter</strong> in production.</li>
                 <li><strong>Impact:</strong> <strong>40+ E2E tests</strong> and <strong>Pact contracts</strong> catch API breakages before release.</li>
                 <li>Deliver <strong>2+ stories per sprint</strong> and <strong>10+ migrations/APIs</strong>, with event-driven observability across <strong>13+ workflows</strong>.</li>
                 <li>Brought <strong>LLMs and AI agents</strong> into engineering workflows for development, debugging, code analysis and automation.</li>
               </ul>
-            </details>
+            </div>
           </div>
         </div>
       </article>
 
       <article class="job">
-        <div class="when"><b>May – Jul 2022</b>India</div>
+        <div class="when"><b>May – Jul 2022</b><span class="dur">3 mos</span>India</div>
         <div>
           <div class="jobhead"><img class="logo" src="https://www.google.com/s2/favicons?domain=oracle.com&amp;sz=128" alt="Oracle logo" width="40" height="40" loading="lazy" onerror="this.remove()"><h3>MTS Intern @ <a href="https://www.oracle.com" target="_blank" rel="noopener">Oracle India (IDC)</a></h3></div>
           <p class="summary">Built a smart chatbot tooling pipeline that turns flowchart-based conversation logic into working bot artifacts.</p>
-          <ul class="chips" aria-label="Tech stack at Oracle">
-            <li>Java</li><li>RASA</li><li>Neo4j</li><li>JSON / XML</li>
-          </ul>
           <div class="projects">
-            <details>
-              <summary><span class="head"><span class="t">Chatbot Tooling Pipeline</span><span class="metric">flowchart → bot</span></span><ul class="chips" aria-label="Tech used"><li>Java</li><li>RASA</li><li>Neo4j</li><li>JSON/XML</li></ul></summary>
+            <div class="project">
+              <div class="phead"><span class="head"><span class="t">Chatbot Tooling Pipeline</span><span class="metric">flowchart → bot</span></span><ul class="chips" aria-label="Tech used"><li>Java</li><li>RASA</li><li>Neo4j</li><li>JSON/XML</li></ul></div>
               <ul>
                 <li>Converted flowchart-based logic into structured JSON/XML (DFF) and generated bot artifacts in Java.</li>
                 <li>Integrated the pipeline with RASA and modelled graph-based conversation flows in Neo4j.</li>
               </ul>
-            </details>
+            </div>
           </div>
         </div>
       </article>
@@ -383,5 +402,18 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
   </div>
 </footer>
 
+<script>
+(function () {
+  var now = new Date();
+  document.querySelectorAll('.dur[data-from]').forEach(function (el) {
+    var p = el.getAttribute('data-from').split('-');
+    var m = (now.getFullYear() - +p[0]) * 12 + (now.getMonth() + 1 - +p[1]) + 1;
+    var y = Math.floor(m / 12), r = m % 12, out = [];
+    if (y) out.push(y + (y === 1 ? ' yr' : ' yrs'));
+    if (r) out.push(r + (r === 1 ? ' mo' : ' mos'));
+    el.textContent = out.join(' ');
+  });
+})();
+</script>
 </body>
 </html>
