@@ -125,9 +125,12 @@ details {
 }
 details[open] { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
 summary {
-  cursor: pointer; list-style: none; padding: 15px 0; display: flex; justify-content: space-between; align-items: baseline; gap: 14px;
+  cursor: pointer; list-style: none; padding: 16px 0; display: grid; grid-template-columns: 1fr auto; column-gap: 14px; row-gap: 10px; align-items: baseline;
   font-weight: 600;
 }
+summary .head { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 14px; flex-wrap: wrap; min-width: 0; }
+summary .chips { grid-column: 1; margin: 0; }
+summary::after { grid-column: 2; grid-row: 1; }
 summary::-webkit-details-marker { display: none; }
 summary .metric { font: 500 13px/1.3 var(--mono); color: var(--accent); white-space: nowrap; }
 summary::after { content: "+"; font: 500 18px/1 var(--mono); color: var(--muted); }
@@ -136,10 +139,13 @@ summary .t { flex: 1; min-width: 0; }
 details ul { margin: 0 0 16px; padding-left: 18px; color: var(--muted); }
 details li { margin-bottom: 6px; }
 details li strong { color: var(--ink); font-weight: 600; }
-@media (max-width: 520px) { summary { flex-wrap: wrap; } summary .metric { order: 3; flex-basis: 100%; } }
+@media (max-width: 520px) { summary .metric { flex-basis: 100%; } }
 
-.summary { color: var(--muted); margin: 6px 0 0; }
-.job h3 a { color: inherit; }
+.summary { color: var(--muted); margin: 10px 0 0; }
+.jobhead { display: flex; align-items: center; gap: 12px; }
+.jobhead h3 { min-width: 0; }
+.logo { width: 40px; height: 40px; flex: none; border-radius: 9px; background: #fff; border: 1px solid var(--line); padding: 5px; object-fit: contain; }
+.job h3 a, .jobhead h3 a { color: inherit; }
 .job h3 a:hover { color: var(--accent); }
 .tech { font: 400 13px/1.6 var(--mono); color: var(--muted); margin: 0 0 16px; padding-top: 12px; border-top: 1px dashed var(--line); max-width: none; }
 .tech span { color: var(--accent); font-weight: 500; }
@@ -218,7 +224,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
       <article class="job">
         <div class="when"><b>Aug 2023 – Present</b>Gurgaon, India</div>
         <div>
-          <h3>Software Engineer @ <a href="https://www.greyorange.com" target="_blank" rel="noopener">GreyOrange</a></h3>
+          <div class="jobhead"><img class="logo" src="https://www.google.com/s2/favicons?domain=greyorange.com&amp;sz=128" alt="GreyOrange logo" width="40" height="40" loading="lazy" onerror="this.remove()"><h3>Software Engineer @ <a href="https://www.greyorange.com" target="_blank" rel="noopener">GreyOrange</a></h3></div>
           <p class="summary">Building Java microservices that keep warehouse picking smooth and fast. Owner of the order management service, the platform's auth service, and core picking logic: virtual bins, pick-clean and tiering. Delivered 150% higher throughput and 30% better picking productivity, and resolve 75+ SEV1/SEV2 incidents a quarter.</p>
           <ul class="chips" aria-label="Tech stack at GreyOrange">
             <li>Java 21</li><li>Spring Boot</li><li>Erlang/OTP</li><li>Kafka</li><li>PostgreSQL</li><li>Redis</li><li>Mnesia</li><li>Keycloak</li><li>Spring Authorization Server</li><li>Flyway</li><li>Elasticsearch</li><li>InfluxDB</li><li>RabbitMQ</li><li>Camunda</li><li>Consul</li><li>Docker</li><li>GCP</li><li>GitHub Actions</li><li>Prometheus</li><li>Pact</li>
@@ -226,29 +232,17 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
 
           <div class="projects">
             <details>
-              <summary><span class="t">Virtual Bins: Picking Orchestration Layer</span><span class="metric">+150% throughput</span></summary>
-              <ul>
-                <li><strong>Impact:</strong> <strong>150% improvement</strong> in system throughput and operational efficiency.</li>
-                <li>Owned <strong>end-to-end design and implementation</strong>: LLD, data models and state transitions for <strong>many-to-one virtual-to-physical bin mapping</strong>.</li>
-                <li>Designed order assignment and de-allocation strategies for different warehouse constraints and load patterns.</li>
-                <li>Built flows for order assignment, smart picking and bin release, with failure recovery and edge-case handling.</li>
-              </ul>
-              <p class="tech"><span>Tech:</span> Erlang/OTP, Mnesia, PostgreSQL, Kafka, Cowboy REST APIs</p>
-            </details>
-
-            <details>
-              <summary><span class="t">Order Management Service (OMS)</span><span class="metric">Outbox + Kafka</span></summary>
+              <summary><span class="head"><span class="t">Order Management Service (OMS)</span><span class="metric">Outbox + Kafka</span></span><ul class="chips" aria-label="Tech used"><li>Java 21</li><li>Spring Boot</li><li>Kafka</li><li>PostgreSQL</li><li>Flyway</li><li>Hibernate</li><li>InfluxDB</li><li>Consul</li><li>OpenAPI</li></ul></summary>
               <ul>
                 <li><strong>Impact:</strong> Reliable downstream notifications and stronger data consistency, using the <strong>Outbox pattern with Kafka</strong>.</li>
                 <li>Owned design and development of a <strong>Spring Boot microservice</strong> managing order documents (ServiceRequests).</li>
                 <li>Built <strong>REST and Kafka-based intake</strong>, hierarchical order structures and expected-vs-actual tracking.</li>
                 <li>Designed state and stage transitions during picking.</li>
               </ul>
-              <p class="tech"><span>Tech:</span> Java 21, Spring Boot, Kafka, PostgreSQL, Flyway, Hibernate, InfluxDB, Consul, OpenAPI</p>
             </details>
 
             <details>
-              <summary><span class="t">Authentication &amp; RBAC Platform (SSO / IAM)</span><span class="metric">zero-downtime rotation</span></summary>
+              <summary><span class="head"><span class="t">Authentication &amp; RBAC Platform (SSO / IAM)</span><span class="metric">zero-downtime rotation</span></span><ul class="chips" aria-label="Tech used"><li>Java 21</li><li>Spring Boot</li><li>Spring Authorization Server</li><li>Spring Security</li><li>Keycloak 26 (SPI)</li><li>OAuth2 / OIDC</li><li>JWT</li><li>PostgreSQL</li><li>Flyway</li><li>Kafka</li></ul></summary>
               <ul>
                 <li><strong>Impact:</strong> Unified enterprise SSO users and password-grant users under <strong>one session model</strong>.</li>
                 <li><strong>Impact:</strong> <strong>Zero-downtime</strong> client-secret rotation using a versioned secret store and a grace-period Argon2 encoder.</li>
@@ -256,37 +250,43 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
                 <li>Wrote custom pre/post-IdP <strong>Keycloak authenticator SPIs</strong> that read application, station and requested-role context from OIDC redirect URIs.</li>
                 <li>Added role-to-permission <strong>RBAC</strong> projected into JWT claims, with two-way role sync through the Keycloak Admin REST API.</li>
               </ul>
-              <p class="tech"><span>Tech:</span> Java 21, Spring Boot, Spring Authorization Server, Spring Security, Keycloak 26 (SPI), OAuth2 / OIDC, JWT, PostgreSQL, Flyway, Kafka</p>
             </details>
 
             <details>
-              <summary><span class="t">Pick Clean Mode</span><span class="metric">−80% cleanup time</span></summary>
+              <summary><span class="head"><span class="t">Virtual Bins: Picking Orchestration Layer</span><span class="metric">+150% throughput</span></span><ul class="chips" aria-label="Tech used"><li>Erlang/OTP</li><li>Mnesia</li><li>PostgreSQL</li><li>Kafka</li><li>Cowboy REST APIs</li></ul></summary>
+              <ul>
+                <li><strong>Impact:</strong> <strong>150% improvement</strong> in system throughput and operational efficiency.</li>
+                <li>Owned <strong>end-to-end design and implementation</strong>: LLD, data models and state transitions for <strong>many-to-one virtual-to-physical bin mapping</strong>.</li>
+                <li>Designed order assignment and de-allocation strategies for different warehouse constraints and load patterns.</li>
+                <li>Built flows for order assignment, smart picking and bin release, with failure recovery and edge-case handling.</li>
+              </ul>
+            </details>
+
+            <details>
+              <summary><span class="head"><span class="t">Pick Clean Mode</span><span class="metric">−80% cleanup time</span></span><ul class="chips" aria-label="Tech used"><li>Erlang/OTP</li><li>Mnesia</li><li>PostgreSQL</li></ul></summary>
               <ul>
                 <li><strong>Impact:</strong> Cut rack and storage cleanup time by <strong>80%</strong> without affecting live order flows.</li>
                 <li>Independently designed a <strong>rack-cleaning optimisation</strong> using tree and sorting algorithms to minimise picker movement and re-handling.</li>
               </ul>
-              <p class="tech"><span>Tech:</span> Erlang/OTP, Mnesia, PostgreSQL</p>
             </details>
 
             <details>
-              <summary><span class="t">Tiering: Throughput Optimisation</span><span class="metric">+30% picking productivity</span></summary>
+              <summary><span class="head"><span class="t">Tiering: Throughput Optimisation</span><span class="metric">+30% picking productivity</span></span><ul class="chips" aria-label="Tech used"><li>Erlang/OTP</li><li>Mnesia</li><li>PostgreSQL</li></ul></summary>
               <ul>
                 <li><strong>Impact:</strong> <strong>30% increase</strong> in picking productivity.</li>
                 <li>Designed a <strong>rack-tiering and proximity-based grouping</strong> mechanism to reduce aisle congestion.</li>
                 <li>Introduced tier-aware picking prioritisation, improving picker parallelism.</li>
               </ul>
-              <p class="tech"><span>Tech:</span> Erlang/OTP, Mnesia, PostgreSQL</p>
             </details>
 
             <details>
-              <summary><span class="t">Reliability, CI/CD &amp; AI tooling</span><span class="metric">75+ SEV1/2 per quarter</span></summary>
+              <summary><span class="head"><span class="t">Reliability, CI/CD &amp; AI tooling</span><span class="metric">75+ SEV1/2 per quarter</span></span><ul class="chips" aria-label="Tech used"><li>GitHub Actions</li><li>Docker</li><li>GCP (Artifact Registry, Pub/Sub)</li><li>SonarQube</li><li>Pact</li><li>Prometheus</li><li>Zipkin</li></ul></summary>
               <ul>
                 <li><strong>Impact:</strong> Resolve <strong>75+ SEV1/SEV2 incidents per quarter</strong> in production.</li>
                 <li><strong>Impact:</strong> <strong>40+ E2E tests</strong> and <strong>Pact contracts</strong> catch API breakages before release.</li>
                 <li>Deliver <strong>2+ stories per sprint</strong> and <strong>10+ migrations/APIs</strong>, with event-driven observability across <strong>13+ workflows</strong>.</li>
                 <li>Brought <strong>LLMs and AI agents</strong> into engineering workflows for development, debugging, code analysis and automation.</li>
               </ul>
-              <p class="tech"><span>Tech:</span> GitHub Actions, Docker, GCP (Artifact Registry, Pub/Sub), SonarQube, Pact, Prometheus, Zipkin</p>
             </details>
           </div>
         </div>
@@ -295,19 +295,18 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
       <article class="job">
         <div class="when"><b>May – Jul 2022</b>India</div>
         <div>
-          <h3>MTS Intern @ <a href="https://www.oracle.com" target="_blank" rel="noopener">Oracle India (IDC)</a></h3>
+          <div class="jobhead"><img class="logo" src="https://www.google.com/s2/favicons?domain=oracle.com&amp;sz=128" alt="Oracle logo" width="40" height="40" loading="lazy" onerror="this.remove()"><h3>MTS Intern @ <a href="https://www.oracle.com" target="_blank" rel="noopener">Oracle India (IDC)</a></h3></div>
           <p class="summary">Built a smart chatbot tooling pipeline that turns flowchart-based conversation logic into working bot artifacts.</p>
           <ul class="chips" aria-label="Tech stack at Oracle">
             <li>Java</li><li>RASA</li><li>Neo4j</li><li>JSON / XML</li>
           </ul>
           <div class="projects">
             <details>
-              <summary><span class="t">Chatbot Tooling Pipeline</span><span class="metric">flowchart → bot</span></summary>
+              <summary><span class="head"><span class="t">Chatbot Tooling Pipeline</span><span class="metric">flowchart → bot</span></span><ul class="chips" aria-label="Tech used"><li>Java</li><li>RASA</li><li>Neo4j</li><li>JSON/XML</li></ul></summary>
               <ul>
                 <li>Converted flowchart-based logic into structured JSON/XML (DFF) and generated bot artifacts in Java.</li>
                 <li>Integrated the pipeline with RASA and modelled graph-based conversation flows in Neo4j.</li>
               </ul>
-              <p class="tech"><span>Tech:</span> Java, RASA, Neo4j, JSON/XML</p>
             </details>
           </div>
         </div>
@@ -356,7 +355,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
       <article class="job">
         <div class="when"><b>2019 – 2023</b>Rourkela, Odisha</div>
         <div>
-          <h3>National Institute of Technology, Rourkela</h3>
+          <div class="jobhead"><img class="logo" src="https://www.google.com/s2/favicons?domain=nitrkl.ac.in&amp;sz=128" alt="NIT Rourkela logo" width="40" height="40" loading="lazy" onerror="this.remove()"><h3><a href="https://www.nitrkl.ac.in" target="_blank" rel="noopener">National Institute of Technology, Rourkela</a></h3></div>
           <p class="role">B.Tech in Computer Science</p>
           <p>CGPA 8.15 / 10 · <a href="https://drive.google.com/file/d/1A4GaRRYZuhTDFhpHs4_AfkpjnC4WQhCz/view?usp=drivesdk" target="_blank" rel="noopener">Grade card</a></p>
         </div>
